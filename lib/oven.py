@@ -97,6 +97,7 @@ class Oven (threading.Thread):
         temperature_count = 0
         last_temp = 0
         pid = 0
+        dirty = 0
    
         while True:
 
