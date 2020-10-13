@@ -97,6 +97,12 @@ class Oven (threading.Thread):
         temperature_count = 0
         last_temp = 0
         pid = 0
+        
+        with open(self.profile.name + '.csv', 'a') as csvfile:
+            fieldnames = ['temp', 'target', 'pid', 'heaton', 'heatoff', 'runtime', 'totaltime', 'timeleft']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+   
         while True:
 
             if self.state == Oven.STATE_RUNNING:
