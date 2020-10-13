@@ -128,17 +128,17 @@ class Oven (threading.Thread):
                      self.totaltime,
                      time_left))
                 
-                with open(self.profile.name + '.csv', 'a'):
-                    print("temp=%.1f, target=%.1f, pid=%.3f, heat_on=%.2f,"
-                          " heat_off=%.2f, run_time=%d, total_time=%d, time_left=%d" %
-                          (self.temp_sensor.temperature + config.thermocouple_offset,
-                           self.target,
-                           pid,
-                           heat_on,
-                           heat_off,
-                           self.runtime,
-                           self.totaltime,
-                           time_left))
+                with open(self.profile.name + '.csv', 'a') as csvfile:
+                    csvfile.write("temp=%.1f, target=%.1f, pid=%.3f, heat_on=%.2f,"
+                                  " heat_off=%.2f, run_time=%d, total_time=%d, time_left=%d" %
+                                  (self.temp_sensor.temperature + config.thermocouple_offset,
+                                   self.target,
+                                   pid,
+                                   heat_on,
+                                   heat_off,
+                                   self.runtime,
+                                   self.totaltime,
+                                   time_left))
 
                 # FIX - this whole thing should be replaced with
                 # a warning low and warning high below and above
