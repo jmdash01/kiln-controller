@@ -129,16 +129,9 @@ class Oven (threading.Thread):
                      time_left))
                 
                 with open(self.profile.name + '.csv', 'a') as csvfile:
-                    csvfile.write("temp=%.1f, target=%.1f, pid=%.3f, heat_on=%.2f,"
-                                  " heat_off=%.2f, run_time=%d, total_time=%d, time_left=%d" %
-                                  (self.temp_sensor.temperature + config.thermocouple_offset,
-                                   self.target,
-                                   pid,
-                                   heat_on,
-                                   heat_off,
-                                   self.runtime,
-                                   self.totaltime,
-                                   time_left))
+                    fieldnames = ['temp', 'target', 'pid', 'heaton', 'heatoff', 'runtime', 'totaltime', 'timeleft']
+                    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                    writer.writerow({'temp': self.temp_sensor.temperature + config.thermocouple_offset, 'target': self.target, 'pid': pid, 'heaton': heat_on, 'heatoff': heat_off, 'runtime': self.runtime, 'totaltime': self.totaltime, 'timeleft': time_left})
 
                 # FIX - this whole thing should be replaced with
                 # a warning low and warning high below and above
